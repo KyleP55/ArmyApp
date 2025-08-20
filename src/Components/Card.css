@@ -1,0 +1,117 @@
+/* === Card Layout === */
+.card {
+  width: 5.5in;
+
+  border: 2px solid #000;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  background: #fdfdfd;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* === Header === */
+.card-header {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+}
+
+.card-title {
+  font-size: 21px; /* was 14px */
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-points {
+  font-size: 18px; /* was 12px */
+  font-weight: bold;
+}
+
+/* === Stats Row === */
+.card-stats {
+  padding: 6px 9px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(36px, 1fr));
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 14px; /* was 9px */
+  font-weight: bold;
+}
+
+.stat-value {
+  font-size: 17px; /* was 11px */
+}
+
+/* === Sections === */
+.card-section {
+  font-size: 14px; /* was 9px */
+  padding: 6px 9px;
+}
+
+.card-section h3 {
+  font-size: 15px; /* was 10px */
+  font-weight: bold;
+  margin: 0 0 3px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* === Faction Themes === */
+.theme-default .card-header { background: linear-gradient(90deg, #222, #444); }
+.theme-default .card-stats { background: #eee; }
+
+.theme-imperium .card-header { background: linear-gradient(90deg, #0d47a1, #1976d2); }
+.theme-imperium .card-stats { background: #bbdefb; }
+
+.theme-chaos .card-header { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
+.theme-chaos .card-stats { background: #e1bee7; }
+
+.theme-ork .card-header { background: linear-gradient(90deg, #1b5e20, #388e3c); }
+.theme-ork .card-stats { background: #c8e6c9; }
+
+.theme-tyranid .card-header { background: linear-gradient(90deg, #4a148c, #6a1b9a); }
+.theme-tyranid .card-stats { background: #d1c4e9; }
+
+.theme-necron .card-header { background: linear-gradient(90deg, #004d40, #00695c); }
+.theme-necron .card-stats { background: #b2dfdb; }
+
+.theme-eldar .card-header { background: linear-gradient(90deg, #b71c1c, #e53935); }
+.theme-eldar .card-stats { background: #ffcdd2; }
+
+/* === Weapons Table === */
+.weapons-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px; /* was 8px */
+  margin-top: 6px;
+}
+
+.weapons-table th {
+  border-bottom: 1px solid #000;
+  text-align: left;
+  padding: 3px;
+  font-size: 12px; /* was 8px */
+  font-weight: bold;
+}
+
+.weapons-table td {
+  border-bottom: 1px solid #ccc;
+  padding: 3px;
+  font-size: 12px; /* was 8px */
+}
+
+.weapons-table tr:last-child td {
+  border-bottom: none;
+}

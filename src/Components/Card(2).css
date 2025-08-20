@@ -1,0 +1,56 @@
+.card {
+  width: 2.5in;
+  height: 3.5in;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Arial", sans-serif;
+  font-size: 10px;
+  background: white;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.card-header .keywords {
+  font-size: 8px;
+  font-style: italic;
+}
+
+.stats-table,
+.weapons table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 8px;
+}
+
+.stats-table th,
+.stats-table td,
+.weapons th,
+.weapons td {
+  border: 1px solid black;
+  text-align: center;
+  padding: 2px;
+}
+
+.abilities {
+  font-size: 8px;
+  margin-top: 4px;
+}
+
+.abilities ul {
+  padding-left: 10px;
+  margin: 0;
+}
+
+.keywords-bottom {
+  font-size: 7px;
+  text-align: center;
+  border-top: 1px solid black;
+  margin-top: auto;
+}
