@@ -15,28 +15,33 @@ function getFactionTheme(faction) {
 }
 
 function UnitDetails({ unit }) {
-    //if (unit.name === "Gargoyles") console.log('unit', unit)
-    const themeClass = getFactionTheme(unit.faction);
+    console.log(unit)
+    const themeClass = 'theme-' + unit.faction;
+    console.log(themeClass)
     return (
         <div className={`unit-details ${themeClass}`}>
-            {/* Header */}
+            {/* Header with stats inside */}
             <header className="unit-header">
-                <h2>{unit.name}</h2><h4>{unit.warlord ? "Warlord" : null}</h4>
-                <span className="points">{unit.points} pts</span>
-
-            </header>
-
-            {/* Stats */}
-            <section className="stats unit-stats">
-                <div className="stats-grid">
-                    {unit.stats.map((s, i) => (
-                        <div key={i} className="stat">
-                            <div className="stat-label">{s.label}</div>
-                            <div className="stat-value">{s.value}</div>
-                        </div>
-                    ))}
+                <div className="header-top">
+                    <div className="header-left">
+                        <h2>{unit.name}</h2>
+                        {unit.count > 1 && <h4 className="count">x{unit.count}</h4>}
+                        {unit.warlord && <h4 className="warlord">Warlord</h4>}
+                    </div>
+                    <span className="points">{unit.points} pts</span>
                 </div>
-            </section>
+
+                <div className="header-stats">
+                    <div className="stats-grid">
+                        {unit.stats.map((s, i) => (
+                            <div key={i} className="stat">
+                                <div className="stat-label">{s.label}</div>
+                                <div className="stat-value">{s.value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </header>
 
             {/* Weapons */}
             {unit.weapons && (
@@ -47,7 +52,10 @@ function UnitDetails({ unit }) {
                             <thead>
                                 <tr>
                                     <th className="th-name">
-                                        <img src={'/Icons/RangedWeapons.png'} alt="Melee Icon" /> Ranged Weapons
+                                        <div className="th-content">
+                                            <img src="./Icons/RangedWeapons.png" alt="Ranged Icon" />
+                                            <span>Ranged Weapons</span>
+                                        </div>
                                     </th>
                                     <th>Range</th>
                                     <th>A</th><th>S</th><th>AP</th><th>D</th>
@@ -60,7 +68,7 @@ function UnitDetails({ unit }) {
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
-                                                    <> <br />[{w.stats.Keywords}]</>
+                                                    <><br />[{w.stats.Keywords}]</>
                                                 )}
                                             </td>
                                             <td>{w.stats.Range}</td>
@@ -78,7 +86,10 @@ function UnitDetails({ unit }) {
                             <thead>
                                 <tr>
                                     <th className="th-name">
-                                        <img src={'/Icons/MeleeWeapons.png'} alt="Melee Icon" /> Melee Weapons
+                                        <div className="th-content">
+                                            <img src="./Icons/MeleeWeapons.png" alt="Melee Icon" />
+                                            <span>Melee Weapons</span>
+                                        </div>
                                     </th>
                                     <th>Range</th>
                                     <th>A</th><th>S</th><th>AP</th><th>D</th>
@@ -134,7 +145,33 @@ function UnitDetails({ unit }) {
                     <p>{unit.keywords.join(", ")}</p>
                 </section>
             )}
-        </div>
+
+            {/* Models */}
+            {unit.models?.length > 0 && (
+                <section className="keywords">
+                    <h3 className="unit-header">Models</h3>
+                    <div className="models-container">
+                        {unit.models && unit.models.map((m, i) => {
+                            return (
+                                <div key={i} className="model-card">
+                                    <div className="model-header">
+                                        <span className="model-name">{m.name}</span>
+                                        <span className="model-count">x{m.count}</span>
+                                    </div>
+                                    {m.weapons?.length > 0 && (
+                                        <ul className="weapons-list">
+                                            {m.weapons.map((w, i) => (
+                                                <li key={i}>{w}</li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+            )}
+        </div >
     );
 }
 

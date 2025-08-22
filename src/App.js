@@ -44,7 +44,7 @@ function App() {
       <Sidebar units={units} onSelect={setSelectedUnit} />
       <main className="content">
         {selectedUnit ? (
-          <UnitDetails unit={selectedUnit} />
+          <UnitDetails unit={selectedUnit} faction={units.faction} />
         ) : (
           <p className="placeholder">Select a unit to view details</p>
         )}

@@ -22,11 +22,6 @@
   border-radius: 4px;
 }
 
-.unit-details {
-  max-width: 600px;
-  margin: auto;
-}
-
 .unit-list {
   list-style: none;
   padding: 0;
@@ -34,10 +29,9 @@
 }
 
 .unit-item {
-  padding: 6px;
-  cursor: pointer;
   padding: 14px 6px;
-  margin: 4px 0px;
+  margin: 4px 0;
+  cursor: pointer;
   text-align: center;
   background: #333;
 }
@@ -54,38 +48,6 @@
   background: #f5f5f5;
 }
 
-
-.weapons-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 12px;
-  table-layout: fixed; /* important */
-}
-
-.weapons-table th,
-.weapons-table td {
-  border: 1px solid #ccc;
-  padding: 4px 6px;
-  font-size: 14px;
-  text-align: center;
-
-}
-
-/* Define consistent column widths */
-.weapons-table th:nth-child(1),
-.weapons-table td:nth-child(1) { width: 44%; } /* Name column wider */
-.weapons-table th:nth-child(2),
-.weapons-table td:nth-child(2) { width: 8%; } /* Range */
-.weapons-table th:nth-child(3),
-.weapons-table td:nth-child(3) { width: 8%; }  /* A */
-.weapons-table th:nth-child(4),
-.weapons-table td:nth-child(4) { width: 8%; }  /* S */
-.weapons-table th:nth-child(5),
-.weapons-table td:nth-child(5) { width: 8%; }  /* AP */
-.weapons-table th:nth-child(6),
-.weapons-table td:nth-child(6) { width: 8%; }  /* D */
-
-/* Overall details panel */
 .unit-details {
   max-width: 800px;
   margin: auto;
@@ -96,22 +58,88 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Unit header */
+/* === Unit Header (with stats inside) === */
 .unit-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   background: #000;
   color: #fff;
-  padding: 6px 10px;
-  font-weight: bold;
-  font-size: 20px;
+  padding: 8px 12px;
   margin-bottom: 12px;
+  border-radius: 4px;
+}
+
+/* === NEW: Top row (name + count/warlord left, points right) === */
+.unit-header .header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.unit-header .header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.unit-header h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.unit-header .count {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+}
+
+.unit-header .warlord {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #ffeb3b;
+  color: #000;
 }
 
 .unit-header .points {
   font-size: 16px;
-  font-weight: normal;
+  font-weight: bold;
+}
+
+/* Stats row inside header */
+.unit-header .header-stats {
+  margin-top: 8px;
+}
+
+/* Grid styling */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 4px;
+}
+
+.stat {
+  background: #f5f5f5;   /* light square background */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  padding: 4px;
+  font-size: 13px;
+  color: #000;
+}
+
+.stat-label {
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 14px;
+  margin-top: 2px;
 }
 
 /* Section headers */
@@ -123,36 +151,6 @@
   font-size: 16px;
   margin: 12px 0 6px;
   border-radius: 4px;
-}
-
-/* Statline grid like Wahapedia */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-  gap: 4px;
-}
-
-.stat {
-  background: #eee;
-  padding: 4px;
-  text-align: center;
-  font-size: 14px;
-  border-right: 1px solid #aaa;
-}
-
-.stat:last-child {
-  border-right: none;
-}
-
-.stat-label {
-  font-weight: bold;
-  font-size: 12px;
-  text-transform: uppercase;
-}
-
-.stat-value {
-  font-size: 14px;
-  margin-top: 2px;
 }
 
 /* Weapons tables */
@@ -167,7 +165,6 @@
 .weapons-table th {
   background: #222;
   color: #fff;
-  
   font-weight: bold;
   padding: 6px;
   font-size: 14px;
@@ -178,12 +175,34 @@
   padding: 4px 6px;
   text-align: center;
   font-size: 13px;
+}
 
+.weapons-table th,
+.weapons-table td {
+  border: 1px solid #ccc;
 }
 
 /* Zebra striping like Wahapedia */
 .weapons-table tbody tr:nth-child(even) {
   background: #f2f2f2;
+}
+
+/* Column widths */
+.weapons-table th:nth-child(1),
+.weapons-table td:nth-child(1) { width: 44%; text-align: left; }
+.weapons-table th:nth-child(2),
+.weapons-table td:nth-child(2) { width: 8%; }
+.weapons-table th:nth-child(3),
+.weapons-table td:nth-child(3) { width: 8%; }
+.weapons-table th:nth-child(4),
+.weapons-table td:nth-child(4) { width: 8%; }
+.weapons-table th:nth-child(5),
+.weapons-table td:nth-child(5) { width: 8%; }
+.weapons-table th:nth-child(6),
+.weapons-table td:nth-child(6) { width: 8%; }
+
+td {
+  background-color: #fff;
 }
 
 /* Abilities */
@@ -209,38 +228,96 @@
   margin: 4px 0;
 }
 
+/* Table headers with icons */
+th img {
+  width: 12px;
+  height: 12px;
+}
+
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+}
 
 /* === Faction Themes === */
-.theme-default .unit-header { background: linear-gradient(90deg, #222, #444); }
-.theme-default .unit-stats { background: #eee; }
+.theme-default .unit-header, .theme-default th { background: linear-gradient(90deg, #222, #444); }
+.theme-default .unit-stats, .theme-default { background: #eee; }
 
-.theme-imperium .unit-header { background: linear-gradient(90deg, #0d47a1, #1976d2); }
-.theme-imperium .unit-stats { background: #bbdefb; }
+.theme-imperium .unit-header, .theme-imperium th { background: linear-gradient(90deg, #0d47a1, #1976d2); }
+.theme-imperium .unit-stats, .theme-imperium { background: #bbdefb; }
 
-.theme-chaos .unit-header { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
-.theme-chaos .unit-stats { background: #e1bee7; }
+.theme-chaos .unit-header, .theme-chaos th { background: linear-gradient(90deg, #7b1fa2, #9c27b0); }
+.theme-chaos .unit-stats, .theme-chaos { background: #e1bee7; }
 
-.theme-ork .unit-header { background: linear-gradient(90deg, #1b5e20, #388e3c); }
-.theme-ork .unit-stats { background: #c8e6c9; }
+.theme-ork .unit-header, .theme-ork th { background: linear-gradient(90deg, #1b5e20, #388e3c); }
+.theme-ork .unit-stats, .theme-ork { background: #c8e6c9; }
 
 .theme-tyranid .unit-header, .theme-tyranid th { background: linear-gradient(90deg, #4a148c, #6a1b9a); }
 .theme-tyranid .unit-stats, .theme-tyranid { background: #d1c4e9; }
 
-.theme-necron .unit-header { background: linear-gradient(90deg, #004d40, #00695c); }
-.theme-necron .unit-stats { background: #b2dfdb; }
+.theme-necron .unit-header, .theme-necron th { background: linear-gradient(90deg, #004d40, #00695c); }
+.theme-necron .unit-stats, .theme-necron { background: #b2dfdb; }
 
-.theme-eldar .unit-header { background: linear-gradient(90deg, #b71c1c, #e53935); }
-.theme-eldar .unit-stats { background: #ffcdd2; }
+.theme-eldar .unit-header, .theme-eldar th { background: linear-gradient(90deg, #b71c1c, #e53935); }
+.theme-eldar .unit-stats, .theme-eldar { background: #ffcdd2; }
 
-td {
-  background-color: #fff;
+.models-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.weapons-table th.th-name {
-  text-align: left;
+/* Each card grows to fill but won’t exceed 300px */
+.model-card {
+  flex: 1 1 200px;     /* can shrink, can grow, base width 200px */
+  max-width: 300px;    /* cap so they don't get too wide */
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* helps equalize height */
 }
 
-th img {
-  width: 12px;
-  height: 12px;
+.model-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.model-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.model-count {
+  font-size: 12px;
+  color: #555;
+}
+
+.weapons-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.weapons-list li {
+  font-size: 13px;
+  line-height: 1.4;
+  padding-left: 12px;
+  position: relative;
+}
+
+.weapons-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #444;
 }

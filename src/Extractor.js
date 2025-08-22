@@ -1,7 +1,11 @@
-const CoreList = [
-    "DEEP STRIKE", "DEADLY DEMISE", "FIGHTS FIRST", "FIRING DECK",
-    "INFILTRATORS", "LEADER", "LONE OPERATIVE", "SCOUTS", "STEALTH"
-];
+const factions = [
+    "imperium",
+    "chaos",
+    "ork",
+    "tyranid",
+    "necron",
+    "eldar"
+]
 
 export function extractUnits(rosterJson) {
     const units = [];
@@ -33,13 +37,16 @@ export function extractUnits(rosterJson) {
             let invSave;
             const unit = {
                 name: sel.name,
+                count: 0,
                 stats: [],
                 abilities: [],
                 keywords: [],
                 core: [],
+                models: [],
                 weapons: { melee: [], ranged: [] },
                 points: sel.costs?.find(c => c.name === "pts")?.value || 0,
                 categories: sel.categories?.map(c => c.name) || [],
+                faction: 'default',
                 warlord: false
             };
 
@@ -67,15 +74,26 @@ export function extractUnits(rosterJson) {
             });
 
             //
-            // --- Weapons ---
+            // --- Weapons & Models ---
             //
             let weapons = [];
             if (sel.type === "unit") {
                 sel.selections?.forEach(sel2 => {
+                    const model = {
+                        name: sel2.name,
+                        count: sel2.number,
+                        weapons: []
+                    }
+
+                    unit.count += sel2.number;
+                    console.log(sel2.name, 'x', sel2.number)
+
                     sel2.selections?.forEach(sel3 => {
                         sel3.profiles?.forEach(p => {
                             if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
                                 const exists = weapons.find(w => w.name === p.name);
+
+                                model.weapons.push(p.name);
 
                                 if (exists) {
                                     exists.count += sel3.number;
@@ -84,9 +102,12 @@ export function extractUnits(rosterJson) {
                                     p.characteristics?.forEach(c => weapon.stats[c.name] = c.$text);
                                     weapons.push(weapon);
                                 }
+
                             }
                         });
                     })
+
+                    unit.models.push(model);
                 })
             } else if (sel.type === "model") {
                 // Weapons are in profiles directly for models
@@ -121,9 +142,7 @@ export function extractUnits(rosterJson) {
             //
             sel.categories?.forEach(c => {
                 const isFaction = c.name.toUpperCase().includes("FACTION:");
-                if (isFaction) {
-                    unit.faction = c.name;
-                } else {
+                if (!isFaction) {
                     unit.keywords.push(c.name);
                 }
             });
@@ -144,7 +163,10 @@ export function extractUnits(rosterJson) {
                 unit.stats.push(stat);
             });
 
-            //console.log(unit)
+            //console.log(unit.count)
+            const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
+            unit.faction = theme;
+
             units.push(unit);
         });
     }
