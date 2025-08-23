@@ -1,3 +1,7 @@
+body {
+  margin: 0px;
+}
+
 .app-layout {
   display: flex;
   height: 100vh;
@@ -363,3 +367,62 @@ th img {
 
 }
 
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh; /* centers vertically */
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.file-upload h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.upload-btn {
+  background: #1976d2;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+}
+
+.upload-btn:active {
+  background: #0d47a1;
+  transform: translateY(0);
+}
+
+
+.new-army-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  width: 100%;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.new-army-btn:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+}
+
+.new-army-btn:active {
+  background: #0d47a1;
+  transform: translateY(0);
+}

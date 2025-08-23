@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Sidebar({ units, onSelect }) {
+function Sidebar({ units, onSelect, handleClear }) {
     const [search, setSearch] = useState("");
 
     const filtered = units.filter(u =>
@@ -9,6 +9,9 @@ function Sidebar({ units, onSelect }) {
 
     return (
         <aside className="sidebar">
+            <button className="new-army-btn" onClick={() => handleClear()}>
+                + New Army
+            </button>
             <input
                 type="text"
                 className="search"

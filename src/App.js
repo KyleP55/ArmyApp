@@ -33,7 +33,10 @@ function App() {
     return (
       <div className="file-upload">
         <h2>Upload a roster JSON file</h2>
-        <input type="file" accept=".json" onChange={handleFileChange} />
+        <label className="upload-btn">
+          Choose File
+          <input type="file" accept=".json" onChange={handleFileChange} hidden />
+        </label>
       </div>
     );
   }
@@ -41,7 +44,7 @@ function App() {
   // Main app once JSON is loaded
   return (
     <div className="app-layout">
-      <Sidebar units={units} onSelect={setSelectedUnit} />
+      <Sidebar units={units} onSelect={setSelectedUnit} handleClear={() => setUnits(null)} />
       <main className="content">
         {selectedUnit ? (
           <UnitDetails unit={selectedUnit} faction={units.faction} />
