@@ -214,7 +214,12 @@ td {
 
 .abilities li {
   padding: 4px 0;
+  font-size: 14px;
   border-bottom: 1px solid #ddd;
+}
+.abilities li strong {
+  padding: 4px 0;
+  font-size: 16px;
 }
 
 .abilities strong {
@@ -321,3 +326,40 @@ th img {
   left: 0;
   color: #444;
 }
+
+/* Enhancement card inside abilities */
+.enhancement {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.enhancement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.enhancement-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #222;
+}
+
+.enhancement-cost {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.enhancement-desc {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 4px 0px;
+
+}
+

@@ -19,7 +19,7 @@ function App() {
         const json = JSON.parse(event.target.result);
         const extracted = extractUnits(json);
         setUnits(extracted);
-        setSelectedUnit(extracted[0] || null);
+        setSelectedUnit(extracted[1] || null);
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);

@@ -1,23 +1,12 @@
 import React from "react";
 
-function getFactionTheme(faction) {
-    if (!faction) return "theme-default";
-    const f = faction.toLowerCase();
-
-    if (f.includes("imperium")) return "theme-imperium";
-    if (f.includes("chaos")) return "theme-chaos";
-    if (f.includes("ork")) return "theme-ork";
-    if (f.includes("tyranid")) return "theme-tyranid";
-    if (f.includes("necron")) return "theme-necron";
-    if (f.includes("eldar")) return "theme-eldar";
-
-    return "theme-default";
-}
+import RuleDetails from "./RuleDetails"
 
 function UnitDetails({ unit }) {
-    console.log(unit)
     const themeClass = 'theme-' + unit.faction;
-    console.log(themeClass)
+
+    if (unit.type === "rules") return <RuleDetails unit={unit} />
+
     return (
         <div className={`unit-details ${themeClass}`}>
             {/* Header with stats inside */}
@@ -127,6 +116,18 @@ function UnitDetails({ unit }) {
                             </li>
                         ))}
                     </ul>
+                </section>
+            )}
+
+            {/* Enhancement */}
+            {unit.enhancement && (
+                <section className="abilities">
+                    <h3 className="unit-header">Enhancement</h3>
+                    <div className="enhancement-header">
+                        <strong className="enhancement-name">{unit.enhancement.name}:</strong>
+                        <span className="enhancement-cost">{unit.enhancement.cost} pts</span>
+                    </div>
+                    <p className="enhancement-desc">{unit.enhancement.description}</p>
                 </section>
             )}
 

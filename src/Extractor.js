@@ -13,9 +13,43 @@ export function extractUnits(rosterJson) {
 
     const forces = rosterJson.roster.forces;
 
+    // Army Rules
+    const armyRules = {
+        type: 'rules',
+        name: 'Army Rules',
+        faction: 'default',
+        rules: [],
+        detachments: []
+    };
+
+    forces[0].rules?.map(r => {
+        const rule = {
+            name: r.name,
+            description: r.description
+        }
+        armyRules.rules.push(rule);
+    });
+
+    const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
+    armyRules.faction = theme;
+
+
+    // function
     function processSelections(selections) {
+
         selections.forEach(sel => {
-            if (sel.type !== "model" && sel.type !== "unit") return;
+            if (sel.name?.toLowerCase() === "detachment") {
+                const sel2 = sel.selections[0];
+                const detachment = {
+                    name: sel2.name,
+                    description: sel2.profiles[0]?.name + ': ' + sel2.profiles[0]?.characteristics[0]?.$text
+                }
+                armyRules.detachments.push(detachment);
+
+                units.push(armyRules);
+            } else if (sel.type !== "model" && sel.type !== "unit") {
+                return;
+            }
 
             let unitProfile;
 
@@ -38,8 +72,10 @@ export function extractUnits(rosterJson) {
             const unit = {
                 name: sel.name,
                 count: 0,
+                unitCount: 1,
                 stats: [],
                 abilities: [],
+                enhancement: null,
                 keywords: [],
                 core: [],
                 models: [],
@@ -86,7 +122,6 @@ export function extractUnits(rosterJson) {
                     }
 
                     unit.count += sel2.number;
-                    console.log(sel2.name, 'x', sel2.number)
 
                     sel2.selections?.forEach(sel3 => {
                         sel3.profiles?.forEach(p => {
@@ -112,7 +147,21 @@ export function extractUnits(rosterJson) {
             } else if (sel.type === "model") {
                 // Weapons are in profiles directly for models
                 sel.selections?.forEach(s => {
-                    if (s.name.toLowerCase() === "warlord") unit.warlord = true;
+                    if (s.type === "upgrade") {
+                        if (s.name.toLowerCase() === "warlord") unit.warlord = true;
+                        if (s.group?.toLowerCase().includes("enhancements")) {
+                            unit.points += s.costs[0]?.value;
+
+                            const enhancement = {
+                                name: s.name,
+                                cost: s.costs[0]?.value,
+                                description: s.profiles[0]?.characteristics[0]?.$text
+                            }
+
+                            unit.enhancement = enhancement;
+                        }
+                    }
+
                     s.profiles?.forEach(p => {
                         if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
                             const weapon = { name: p.name, type: p.typeName, stats: {} };
@@ -122,9 +171,6 @@ export function extractUnits(rosterJson) {
                     })
                 });
             }
-
-            //console.log(weapons)
-
 
             // Sort weapons
             weapons?.forEach((w) => {
@@ -163,10 +209,22 @@ export function extractUnits(rosterJson) {
                 unit.stats.push(stat);
             });
 
-            //console.log(unit.count)
             const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
             unit.faction = theme;
 
+            // doup check
+            let dupe = false;
+            units.map((u, i) => {
+                if (deepEqual(u, unit)) {
+                    dupe = i;
+                    return;
+                }
+            });
+
+            if (dupe) {
+                units[dupe].unitCount++;
+                return;
+            }
             units.push(unit);
         });
     }
@@ -174,3 +232,27 @@ export function extractUnits(rosterJson) {
     forces.forEach(force => force.selections && processSelections(force.selections));
     return units;
 }
+
+
+function deepEqual(a, b) {
+    if (a === b) return true;
+
+    // Handle null or different types
+    if (a == null || b == null || typeof a !== "object" || typeof b !== "object") {
+        return false;
+    }
+
+    // Arrays
+    if (Array.isArray(a) && Array.isArray(b)) {
+        if (a.length !== b.length) return false;
+        return a.every((item, index) => deepEqual(item, b[index]));
+    }
+
+    // Objects
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+    if (keysA.length !== keysB.length) return false;
+
+    return keysA.every(key => deepEqual(a[key], b[key]));
+}
+

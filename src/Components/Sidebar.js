@@ -24,6 +24,7 @@ function Sidebar({ units, onSelect }) {
                         onClick={() => onSelect(u)}
                     >
                         {u.name}
+                        {u.unitCount > 1 && " (" + u.unitCount + ")"}
                     </li>
                 ))}
             </ul>
