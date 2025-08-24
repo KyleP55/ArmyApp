@@ -111,7 +111,7 @@ function UnitDetails({ unit }) {
                     <h3 className="unit-header">Abilities</h3>
                     <ul>
                         {unit.abilities.map((a, i) => (
-                            <li key={i}>
+                            <li key={i} style={{ whiteSpace: "pre-line" }}>
                                 <strong>{a.name}: </strong> {a.description}
                             </li>
                         ))}

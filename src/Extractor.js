@@ -230,6 +230,7 @@ export function extractUnits(rosterJson) {
     }
 
     forces.forEach(force => force.selections && processSelections(force.selections));
+    console.log(units)
     return units;
 }
 

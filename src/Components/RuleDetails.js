@@ -13,7 +13,7 @@ function RuleDetails({ unit }) {
                     </div>
                 </div>
                 <div>
-                    <p>{unit.rules[0].description}</p>
+                    <p style={{ whiteSpace: "pre-line" }}>{unit.rules[0].description}</p>
                 </div>
             </header>
 
@@ -23,7 +23,7 @@ function RuleDetails({ unit }) {
                     <h3 className="unit-header">Detachments</h3>
                     <ul>
                         {unit.detachments.map((d, i) => (
-                            <li key={i}>
+                            <li key={i} style={{ whiteSpace: "pre-line" }}>
                                 <strong>{d.name}: </strong> {d.description}
                             </li>
                         ))}
