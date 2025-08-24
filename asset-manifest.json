@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/DataCards/static/css/main.e0cef178.css",
-    "main.js": "/DataCards/static/js/main.7710e8eb.js",
-    "index.html": "/DataCards/index.html",
-    "main.e0cef178.css.map": "/DataCards/static/css/main.e0cef178.css.map",
-    "main.7710e8eb.js.map": "/DataCards/static/js/main.7710e8eb.js.map"
+    "main.css": "/ArmyApp/static/css/main.e0cef178.css",
+    "main.js": "/ArmyApp/static/js/main.7710e8eb.js",
+    "index.html": "/ArmyApp/index.html",
+    "main.e0cef178.css.map": "/ArmyApp/static/css/main.e0cef178.css.map",
+    "main.7710e8eb.js.map": "/ArmyApp/static/js/main.7710e8eb.js.map"
   },
   "entrypoints": [
     "static/css/main.e0cef178.css",
