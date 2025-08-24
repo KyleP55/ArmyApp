@@ -22,7 +22,7 @@ export function extractUnits(rosterJson) {
         detachments: []
     };
 
-    forces[0].rules?.map(r => {
+    forces[0]?.rules?.map(r => {
         const rule = {
             name: r.name,
             description: r.description
@@ -33,12 +33,13 @@ export function extractUnits(rosterJson) {
     const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
     armyRules.faction = theme;
 
-
+    console.log('hit')
     // function
     function processSelections(selections) {
 
         selections.forEach(sel => {
-            if (sel.name?.toLowerCase() === "detachment") {
+            // Detachment
+            if (sel.name?.toLowerCase() === "detachment" && sel.selections) {
                 const sel2 = sel.selections[0];
                 const detachment = {
                     name: sel2.name,
@@ -47,9 +48,10 @@ export function extractUnits(rosterJson) {
                 armyRules.detachments.push(detachment);
 
                 units.push(armyRules);
-            } else if (sel.type !== "model" && sel.type !== "unit") {
-                return;
-            }
+            } else
+                if (sel.type !== "model" && sel.type !== "unit") {
+                    return;
+                }
 
             let unitProfile;
 
