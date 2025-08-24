@@ -2,6 +2,9 @@ import React from "react";
 
 import RuleDetails from "./RuleDetails"
 
+import MeleeIcon from "../Icons/MeleeWeapons.png";
+import RangedIcon from "../Icons/RangedWeapons.png";
+
 function UnitDetails({ unit }) {
     const themeClass = 'theme-' + unit.faction;
 
@@ -42,7 +45,7 @@ function UnitDetails({ unit }) {
                                 <tr>
                                     <th className="th-name">
                                         <div className="th-content">
-                                            <img src="./Icons/RangedWeapons.png" alt="Ranged Icon" />
+                                            <img src={RangedIcon} alt="Ranged Icon" />
                                             <span>Ranged Weapons</span>
                                         </div>
                                     </th>
@@ -76,7 +79,7 @@ function UnitDetails({ unit }) {
                                 <tr>
                                     <th className="th-name">
                                         <div className="th-content">
-                                            <img src="./Icons/MeleeWeapons.png" alt="Melee Icon" />
+                                            <img src={MeleeIcon} alt="Melee Icon" />
                                             <span>Melee Weapons</span>
                                         </div>
                                     </th>

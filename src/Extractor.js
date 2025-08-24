@@ -107,7 +107,7 @@ export function extractUnits(rosterJson) {
                     let isInvSave = a.name.toUpperCase().includes("INVULNERABLE SAVE");
 
                     if (isInvSave) {
-                        invSave = a.name.slice(-3, -1);
+                        invSave = a.characteristics[0]?.$text;
                     } else {
                         unit.abilities.push({ name: a.name, description: c.$text });
                     }
