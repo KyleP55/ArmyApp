@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 
-let totalPoints = 0;
-
 function Sidebar({ units, onSelect, handleClear }) {
     const [search, setSearch] = useState("");
+    const [totalPoints, setTotalPoints] = useState(0);
 
     const filtered = units.filter(u =>
         u.name.toLowerCase().includes(search.toLowerCase())
     );
 
     useEffect(() => {
+        setTotalPoints(0);
         units.forEach(u => {
-            totalPoints += u.points;
+            if (u.points) setTotalPoints(prev => prev + u.points * u.unitCount);
         })
-    }, []);
+    }, [units]);
 
     return (
         <aside className="sidebar">

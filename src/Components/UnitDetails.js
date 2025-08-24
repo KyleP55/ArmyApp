@@ -148,7 +148,7 @@ function UnitDetails({ unit }) {
             )}
 
             {/* Models */}
-            {unit.models?.length > 0 && (
+            {unit.models?.length > 1 && (
                 <section className="keywords">
                     <h3 className="unit-header">Models</h3>
                     <div className="models-container">

@@ -33,7 +33,6 @@ export function extractUnits(rosterJson) {
     const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
     armyRules.faction = theme;
 
-    console.log('hit')
     // function
     function processSelections(selections) {
 
@@ -87,6 +86,17 @@ export function extractUnits(rosterJson) {
                 faction: 'default',
                 warlord: false
             };
+
+            //
+            // --- Costs ---
+            //
+            if (sel.costs) {
+                unit.points = sel.costs.find(c => c.name === "pts")?.value;
+            } else if (sel.selections) {
+                sel.selections.map(s => {
+                    unit.points = s.costs ? s.costs.find(c => c.name === "pts")?.value : 0;
+                });
+            }
 
             //
             // --- Abilities ---
@@ -232,7 +242,6 @@ export function extractUnits(rosterJson) {
     }
 
     forces.forEach(force => force.selections && processSelections(force.selections));
-    console.log(units)
     return units;
 }
 
