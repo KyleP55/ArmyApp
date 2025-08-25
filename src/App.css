@@ -209,6 +209,8 @@ body {
 .weapons-table td:nth-child(5) { width: 8%; }
 .weapons-table th:nth-child(6),
 .weapons-table td:nth-child(6) { width: 8%; }
+.weapons-table th:nth-child(7),
+.weapons-table td:nth-child(7) { width: 8%; }
 
 td {
   background-color: #fff;

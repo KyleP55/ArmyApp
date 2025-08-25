@@ -50,7 +50,7 @@ function UnitDetails({ unit }) {
                                         </div>
                                     </th>
                                     <th>Range</th>
-                                    <th>A</th><th>S</th><th>AP</th><th>D</th>
+                                    <th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,14 +63,15 @@ function UnitDetails({ unit }) {
                                                     <><br />[{w.stats.Keywords}]</>
                                                 )}
                                             </td>
-                                            <td>{w.stats.Range}</td>
-                                            <td>{w.stats.A}</td><td>{w.stats.S}</td>
+                                            <td>{w.stats.Range}</td><td>{w.stats.A}</td>
+                                            <td>{w.stats.BS}</td><td>{w.stats.S}</td>
                                             <td>{w.stats.AP}</td><td>{w.stats.D}</td>
                                         </tr>
                                     ))}
                             </tbody>
                         </table>
                     )}
+                    {console.log(unit)}
 
                     {/* Melee */}
                     {unit.weapons.melee.length > 0 && (
@@ -84,7 +85,7 @@ function UnitDetails({ unit }) {
                                         </div>
                                     </th>
                                     <th>Range</th>
-                                    <th>A</th><th>S</th><th>AP</th><th>D</th>
+                                    <th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -97,8 +98,8 @@ function UnitDetails({ unit }) {
                                                     <> <br />[{w.stats.Keywords}]</>
                                                 )}
                                             </td>
-                                            <td>{w.stats.Range}</td>
-                                            <td>{w.stats.A}</td><td>{w.stats.S}</td>
+                                            <td>{w.stats.Range}</td><td>{w.stats.A}</td>
+                                            <td>{w.stats.WS}</td><td>{w.stats.S}</td>
                                             <td>{w.stats.AP}</td><td>{w.stats.D}</td>
                                         </tr>
                                     ))}
