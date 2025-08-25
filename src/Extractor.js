@@ -105,13 +105,11 @@ export function extractUnits(rosterJson) {
             abilityProfiles.forEach(a => {
                 a.characteristics?.forEach(c => {
                     let isInvSave = a.name.toUpperCase().includes("INVULNERABLE SAVE");
-
                     if (isInvSave) {
-                        if (a.name.match(/\((\d\+)\)/)) {
-                            invSave = a.name.match(/\((\d\+)\)/)[1];
-                            console.log(a.name.match(/\((\d\+)\)/)[1])
+                        if (a.name.match(/\d\+/)) {
+                            invSave = a.name.match(/\d\+/)[0];
                         } else {
-                            invSave = a.characteristics[0]?.$text;
+                            invSave = a.characteristics[0]?.$text?.match(/\d\+/)[0];
                         }
                     } else {
                         unit.abilities.push({ name: a.name, description: c.$text });
