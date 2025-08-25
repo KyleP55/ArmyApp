@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/ArmyApp/static/css/main.719c37d8.css",
-    "main.js": "/ArmyApp/static/js/main.5ac9aed1.js",
+    "main.css": "/ArmyApp/static/css/main.b1a0776f.css",
+    "main.js": "/ArmyApp/static/js/main.937e7cca.js",
     "index.html": "/ArmyApp/index.html",
-    "main.719c37d8.css.map": "/ArmyApp/static/css/main.719c37d8.css.map",
-    "main.5ac9aed1.js.map": "/ArmyApp/static/js/main.5ac9aed1.js.map"
+    "main.b1a0776f.css.map": "/ArmyApp/static/css/main.b1a0776f.css.map",
+    "main.937e7cca.js.map": "/ArmyApp/static/js/main.937e7cca.js.map"
   },
   "entrypoints": [
-    "static/css/main.719c37d8.css",
-    "static/js/main.5ac9aed1.js"
+    "static/css/main.b1a0776f.css",
+    "static/js/main.937e7cca.js"
   ]
 }
