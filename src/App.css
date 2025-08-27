@@ -4,13 +4,44 @@ body {
 
 .app-layout {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   font-family: Arial, sans-serif;
+}
+
+.headerContainer {
+  width: calc(100% - 32px);
+  height: 34px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  background-color: #222;
+  color: #fff;
+  text-shadow: #7b1fa2;
+}
+
+.headerText {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.headerButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.pageLayout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
 }
 
 /* Sidebar */
 .sidebar {
   width: 200px;
+  height: calc(100% - 16px);
   background: #222;
   color: #fff;
   display: flex;
@@ -55,6 +86,7 @@ body {
   padding: 16px;
   overflow-y: auto;
   background: #f5f5f5;
+  height: calc(100% - 32px);
 }
 
 .unit-details {

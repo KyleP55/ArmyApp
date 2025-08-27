@@ -5,8 +5,8 @@ import RuleDetails from "./RuleDetails"
 import MeleeIcon from "../Icons/MeleeWeapons.png";
 import RangedIcon from "../Icons/RangedWeapons.png";
 
-function UnitDetails({ unit }) {
-    const themeClass = 'theme-' + unit.faction;
+function UnitDetails({ unit, faction }) {
+    const themeClass = 'theme-' + faction;
 
     if (unit.type === "rules") return <RuleDetails unit={unit} />
 
@@ -71,7 +71,6 @@ function UnitDetails({ unit }) {
                             </tbody>
                         </table>
                     )}
-                    {console.log(unit)}
 
                     {/* Melee */}
                     {unit.weapons.melee.length > 0 && (

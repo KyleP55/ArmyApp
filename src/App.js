@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { extractUnits } from "./Extractor";
-import Sidebar from "./Components/Sidebar";
-import UnitDetails from "./Components/UnitDetails";
+
+import Header from "./Components/Header";
+import UnitsPage from "./Pages/UnitsPage";
+import AbilitiesPage from "./Pages/AbilitiesPage";
+
+import AbilityDetails from "./Components/AbilityDetails";
 
 import "./App.css";
 
 function App() {
   const [units, setUnits] = useState(null);
-  const [selectedUnit, setSelectedUnit] = useState(null);
+  const [selectedUnit, setSelectedUnit] = useState(null)
+  const [faction, setFaction] = useState(null);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -19,7 +25,8 @@ function App() {
         const json = JSON.parse(event.target.result);
         const extracted = extractUnits(json);
         setUnits(extracted);
-        setSelectedUnit(extracted[1] || null);
+        setSelectedUnit(extracted[0]);
+        setFaction(extracted[0]?.faction);
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);
@@ -43,16 +50,16 @@ function App() {
 
   // Main app once JSON is loaded
   return (
-    <div className="app-layout">
-      <Sidebar units={units} onSelect={setSelectedUnit} handleClear={() => setUnits(null)} />
-      <main className="content">
-        {selectedUnit ? (
-          <UnitDetails unit={selectedUnit} faction={units.faction} />
-        ) : (
-          <p className="placeholder">Select a unit to view details</p>
-        )}
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index element={
+            <UnitsPage units={units} selectedUnit={selectedUnit} onClear={() => setUnits(null)} onSelect={(u) => setSelectedUnit(u)} faction={faction} />
+          } />
+          <Route path="/abilities" element={<AbilitiesPage units={units} faction={faction} />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
