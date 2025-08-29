@@ -179,11 +179,33 @@ export function extractUnits(rosterJson) {
 
                     s.profiles?.forEach(p => {
                         if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
-                            const weapon = { name: p.name, type: p.typeName, stats: {} };
-                            p.characteristics?.forEach(c => weapon.stats[c.name] = c.$text);
-                            weapons.push(weapon);
+                            const exists = weapons.find(w => w.name === p.name);
+
+                            if (exists) {
+                                exists.count += s.number;
+                            } else {
+                                const weapon = { name: p.name, type: p.typeName, count: s.number, stats: {} };
+                                p.characteristics?.forEach(c => weapon.stats[c.name] = c.$text);
+                                weapons.push(weapon);
+                            }
                         }
-                    })
+                    });
+
+                    s.selections?.map(sel2 => {
+                        sel2.profiles?.forEach(p => {
+                            if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
+                                const exists = weapons.find(w => w.name === p.name);
+
+                                if (exists) {
+                                    exists.count += sel2.number;
+                                } else {
+                                    const weapon = { name: p.name, type: p.typeName, count: sel2.number, stats: {} };
+                                    p.characteristics?.forEach(c => weapon.stats[c.name] = c.$text);
+                                    weapons.push(weapon);
+                                }
+                            }
+                        });
+                    });
                 });
             }
 

@@ -71,7 +71,6 @@ function UnitDetails({ unit }) {
                             </tbody>
                         </table>
                     )}
-                    {console.log(unit)}
 
                     {/* Melee */}
                     {unit.weapons.melee.length > 0 && (
