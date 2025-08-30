@@ -7,8 +7,52 @@ const factions = [
     "eldar"
 ]
 
+const armyRulesList = [
+    "acts of faith",
+    "assigned agents",
+    "battle focus",
+    "bondsman abilities",
+    "blessings of khorne",
+    "cabal of sorcerers",
+    "code chivalric",
+    "cult ambush",
+    "cult of the dark gods",
+    "daemonic pact",
+    "dark pacts",
+    "deathwatch",
+    "disparate paths",
+    "doctrina imperatives",
+    "dreadblades",
+    "eye of the ancestors",
+    "for the greater good",
+    "freeblades",
+    "harbingers of dread",
+    "kill team",
+    "martial ka’tah",
+    "nurgle’s gift",
+    "oath of moment",
+    "pact of blood",
+    "pact of decay",
+    "pact of excess",
+    "pact of sorcery",
+    "power from pain",
+    "reanimation protocols",
+    "shadow in the warp",
+    "space marine chapters",
+    "super-heavy walker",
+    "synapse",
+    "teleport assault",
+    "thrill seekers",
+    "titanic support",
+    "titanicus traitoris",
+    "towering example",
+    "voice of command",
+    "waaagh!",
+    "the shadow of chaos"
+];
+
+
 export function extractUnits(rosterJson) {
-    console.log(JSON.stringify(rosterJson))
     const units = [];
     if (!rosterJson?.roster?.forces) return units;
 
@@ -37,7 +81,27 @@ export function extractUnits(rosterJson) {
     // function
     function processSelections(selections) {
         selections.forEach(sel => {
-            console.log('selection', sel)
+
+            // Army Rules
+            sel.rules?.map(r => {
+                const isArmyRule = armyRulesList.some(rule =>
+                    rule.includes(r.name.toLowerCase())
+                );
+
+                if (isArmyRule) {
+                    if (armyRules.rules?.some(ar => r.name.toLowerCase().includes(ar.name.toLowerCase()))) {
+                        return;
+                    }
+
+                    const rule = {
+                        name: r.name,
+                        description: r.description
+                    }
+                    armyRules.rules.push(rule);
+                    //console.log('pushed', rule)
+                }
+            })
+
             // Detachment
             if (sel.name?.toLowerCase() === "detachment" && sel.selections) {
                 const sel2 = sel.selections[0];
@@ -53,10 +117,8 @@ export function extractUnits(rosterJson) {
                         name: sel2.name,
                         description: desc
                     }
-                    console.log(detachment)
-                    armyRules.detachments.push(detachment);
 
-                    units.push(armyRules);
+                    armyRules.detachments.push(detachment);
                 }
             } else
                 if (sel.type !== "model" && sel.type !== "unit") {
@@ -259,6 +321,10 @@ export function extractUnits(rosterJson) {
 
             const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
             unit.faction = theme;
+
+            if (armyRules && !units?.some(u =>
+                u.name === "Army Rules"
+            )) units.push(armyRules);
 
             // doup check
             let dupe = false;
