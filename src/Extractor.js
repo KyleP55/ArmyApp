@@ -8,6 +8,7 @@ const factions = [
 ]
 
 export function extractUnits(rosterJson) {
+    console.log(JSON.stringify(rosterJson))
     const units = [];
     if (!rosterJson?.roster?.forces) return units;
 
@@ -35,18 +36,28 @@ export function extractUnits(rosterJson) {
 
     // function
     function processSelections(selections) {
-
         selections.forEach(sel => {
+            console.log('selection', sel)
             // Detachment
             if (sel.name?.toLowerCase() === "detachment" && sel.selections) {
                 const sel2 = sel.selections[0];
-                const detachment = {
-                    name: sel2.name,
-                    description: sel2.profiles[0]?.name + ': ' + sel2.profiles[0]?.characteristics[0]?.$text
-                }
-                armyRules.detachments.push(detachment);
 
-                units.push(armyRules);
+                if (sel2.name.toLowerCase() != 'battle size') {
+                    const desc = sel2.profiles?.[0]
+                        ? `${sel2.profiles[0].name}: ${sel2.profiles[0].characteristics?.[0]?.$text || ""}`
+                        : `${sel2.rules?.[0]?.name || ""}: ${sel2.rules?.[0]?.description || ""}`;
+
+                    if (!desc) return;
+
+                    const detachment = {
+                        name: sel2.name,
+                        description: desc
+                    }
+                    console.log(detachment)
+                    armyRules.detachments.push(detachment);
+
+                    units.push(armyRules);
+                }
             } else
                 if (sel.type !== "model" && sel.type !== "unit") {
                     return;

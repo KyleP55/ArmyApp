@@ -6,16 +6,18 @@ function RuleDetails({ unit }) {
     return (
         <div className={`unit-details ${themeClass}`}>
             {/* Header with stats inside */}
-            <header className="unit-header">
-                <div className="header-top">
-                    <div className="header-left">
-                        <h2>{unit.rules[0].name}</h2>
+            {unit.rules.length > 0 &&
+                <header className="unit-header">
+                    <div className="header-top">
+                        <div className="header-left">
+                            <h2>{unit.rules[0].name}</h2>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <p style={{ whiteSpace: "pre-line" }}>{unit.rules[0].description}</p>
-                </div>
-            </header>
+                    <div>
+                        <p style={{ whiteSpace: "pre-line" }}>{unit.rules[0].description}</p>
+                    </div>
+                </header>
+            }
 
             {/* Detachments */}
             {unit.detachments?.length > 0 && (

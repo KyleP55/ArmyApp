@@ -20,6 +20,7 @@ function App() {
         const extracted = extractUnits(json);
         setUnits(extracted);
         setSelectedUnit(extracted[1] || null);
+        console.log(extracted)
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);
