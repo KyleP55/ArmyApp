@@ -191,9 +191,11 @@ body {
   border: 1px solid #ccc;
 }
 
-/* Zebra striping like Wahapedia */
+.weapons-table tbody {
+  background: #ffffff;
+}
 .weapons-table tbody tr:nth-child(even) {
-  background: #f2f2f2;
+  background: #f1f1f1;
 }
 
 /* Column widths */
@@ -211,10 +213,6 @@ body {
 .weapons-table td:nth-child(6) { width: 8%; }
 .weapons-table th:nth-child(7),
 .weapons-table td:nth-child(7) { width: 8%; }
-
-td {
-  background-color: #fff;
-}
 
 /* Abilities */
 .abilities ul {
@@ -432,4 +430,11 @@ th img {
 .new-army-btn:active {
   background: #0d47a1;
   transform: translateY(0);
+}
+
+.row-even {
+  background-color: #ffffff;
+}
+.row-odd {
+  background-color: #ffffff;
 }

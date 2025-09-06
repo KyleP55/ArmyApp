@@ -67,14 +67,6 @@ export function extractUnits(rosterJson) {
         detachments: []
     };
 
-    forces[0]?.rules?.map(r => {
-        const rule = {
-            name: r.name,
-            description: r.description
-        }
-        armyRules.rules.push(rule);
-    });
-
     const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
     armyRules.faction = theme;
 
@@ -98,7 +90,6 @@ export function extractUnits(rosterJson) {
                         description: r.description
                     }
                     armyRules.rules.push(rule);
-                    //console.log('pushed', rule)
                 }
             })
 
@@ -297,10 +288,7 @@ export function extractUnits(rosterJson) {
             // --- Keywords / Factions ---
             //
             sel.categories?.forEach(c => {
-                const isFaction = c.name.toUpperCase().includes("FACTION:");
-                if (!isFaction) {
-                    unit.keywords.push(c.name);
-                }
+                unit.keywords.push(c.name);
             });
 
             //

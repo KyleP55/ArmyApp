@@ -56,7 +56,7 @@ function UnitDetails({ unit }) {
                             <tbody>
                                 {unit.weapons.ranged
                                     .map((w, i) => (
-                                        <tr key={i}>
+                                        <tr key={i} className={i % 2 === 0 ? "row-even" : "row-odd"}>
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
@@ -90,7 +90,7 @@ function UnitDetails({ unit }) {
                             <tbody>
                                 {unit.weapons.melee
                                     .map((w, i) => (
-                                        <tr key={i}>
+                                        <tr key={i} className={i % 2 === 0 ? "row-even" : "row-odd"}>
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
@@ -146,7 +146,17 @@ function UnitDetails({ unit }) {
             {unit.keywords?.length > 0 && (
                 <section className="keywords">
                     <h3 className="unit-header">Keywords</h3>
-                    <p>{unit.keywords.join(", ")}</p>
+                    <p>
+                        {unit.keywords.map((kw, i) => {
+                            const isFaction = kw.toLowerCase().includes("faction");
+                            return (
+                                <React.Fragment key={i}>
+                                    {isFaction ? <strong>{kw}</strong> : kw}
+                                    {i < unit.keywords.length - 1 && ", "}
+                                </React.Fragment>
+                            );
+                        })}
+                    </p>
                 </section>
             )}
 
