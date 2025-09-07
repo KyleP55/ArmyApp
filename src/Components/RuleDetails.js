@@ -1,4 +1,4 @@
-import React from "react";
+import strFormatter from "../StrFormatter";
 
 function RuleDetails({ unit }) {
     const themeClass = 'theme-' + unit.faction;
@@ -14,7 +14,7 @@ function RuleDetails({ unit }) {
                         </div>
                     </div>
                     <div>
-                        <p style={{ whiteSpace: "pre-line" }}>{unit.rules[0].description}</p>
+                        <p style={{ whiteSpace: "pre-line" }}>{strFormatter(unit.rules[0].description)}</p>
                     </div>
                 </header>
             }
@@ -26,7 +26,7 @@ function RuleDetails({ unit }) {
                     <ul>
                         {unit.detachments.map((d, i) => (
                             <li key={i} style={{ whiteSpace: "pre-line" }}>
-                                <strong>{d.name}: </strong> {d.description}
+                                <strong>{d.name}: </strong> {strFormatter(d.description)}
                             </li>
                         ))}
                     </ul>

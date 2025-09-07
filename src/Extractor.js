@@ -357,4 +357,3 @@ function deepEqual(a, b) {
 
     return keysA.every(key => deepEqual(a[key], b[key]));
 }
-

@@ -5,6 +5,8 @@ import RuleDetails from "./RuleDetails"
 import MeleeIcon from "../Icons/MeleeWeapons.png";
 import RangedIcon from "../Icons/RangedWeapons.png";
 
+import strFormatter from "../StrFormatter";
+
 function UnitDetails({ unit }) {
     const themeClass = 'theme-' + unit.faction;
 
@@ -115,7 +117,7 @@ function UnitDetails({ unit }) {
                     <ul>
                         {unit.abilities.map((a, i) => (
                             <li key={i} style={{ whiteSpace: "pre-line" }}>
-                                <strong>{a.name}: </strong> {a.description}
+                                <strong>{a.name}: </strong> {strFormatter(a.description)}
                             </li>
                         ))}
                     </ul>
