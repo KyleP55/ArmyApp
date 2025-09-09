@@ -54,6 +54,7 @@ const armyRulesList = [
 
 export function extractUnits(rosterJson) {
     const units = [];
+    const rulesList = [];
     if (!rosterJson?.roster?.forces) return units;
 
     const forces = rosterJson.roster.forces;
@@ -73,7 +74,7 @@ export function extractUnits(rosterJson) {
     // function
     function processSelections(selections) {
         selections.forEach(sel => {
-
+            console.log(sel)
             // Army Rules
             sel.rules?.map(r => {
                 const isArmyRule = armyRulesList.some(rule =>
@@ -90,6 +91,12 @@ export function extractUnits(rosterJson) {
                         description: r.description
                     }
                     armyRules.rules.push(rule);
+                } else {
+                    const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+
+                    if (ruleExists) return;
+
+                    rulesList.push({ name: r.name, description: r.description });
                 }
             })
 
@@ -203,6 +210,15 @@ export function extractUnits(rosterJson) {
                     unit.count += sel2.number;
 
                     sel2.selections?.forEach(sel3 => {
+                        // Weapon Rules
+                        sel3.rules?.map(r => {
+                            const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+
+                            if (ruleExists) return;
+
+                            rulesList.push({ name: r.name, description: r.description });
+                        });
+                        // Profiles
                         sel3.profiles?.forEach(p => {
                             if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
                                 const exists = weapons.find(w => w.name === p.name);
@@ -226,6 +242,7 @@ export function extractUnits(rosterJson) {
             } else if (sel.type === "model") {
                 // Weapons are in profiles directly for models
                 sel.selections?.forEach(s => {
+                    //console.log(s)
                     if (s.type === "upgrade") {
                         if (s.name.toLowerCase() === "warlord") unit.warlord = true;
                         if (s.group?.toLowerCase().includes("enhancements")) {
@@ -255,7 +272,24 @@ export function extractUnits(rosterJson) {
                         }
                     });
 
+                    // Weapon Rules
+                    s.rules?.map(r => {
+                        const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+
+                        if (ruleExists) return;
+
+                        rulesList.push({ name: r.name, description: r.description });
+                    });
+
                     s.selections?.map(sel2 => {
+                        // Weapon Rules
+                        sel2.rules?.map(r => {
+                            const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+
+                            if (ruleExists) return;
+
+                            rulesList.push({ name: r.name, description: r.description });
+                        });
                         sel2.profiles?.forEach(p => {
                             if (p.typeName === "Melee Weapons" || p.typeName === "Ranged Weapons") {
                                 const exists = weapons.find(w => w.name === p.name);
@@ -332,6 +366,9 @@ export function extractUnits(rosterJson) {
     }
 
     forces.forEach(force => force.selections && processSelections(force.selections));
+    rulesList.push({ name: "Psychic", description: "Some weapons and abilities can only be used by PSYKERS. Such weapons and abilities are tagged with the word ‘Psychic’. If a Psychic weapon or ability causes any unit to suffer one or more wounds, each of those wounds is considered to have been inflicted by a Psychic Attack. " })
+    units.rules = rulesList;
+
     return units;
 }
 

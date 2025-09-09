@@ -6,14 +6,16 @@ import MeleeIcon from "../Icons/MeleeWeapons.png";
 import RangedIcon from "../Icons/RangedWeapons.png";
 
 import strFormatter from "../StrFormatter";
+import keywordFormat from "../formatWithKeywords";
 
-function UnitDetails({ unit }) {
+function UnitDetails({ unit, keywords }) {
     const themeClass = 'theme-' + unit.faction;
 
     if (unit.type === "rules") return <RuleDetails unit={unit} />
 
     return (
         <div className={`unit-details ${themeClass}`}>
+            {console.log(keywords.map(k => k.name))}
             {/* Header with stats inside */}
             <header className="unit-header">
                 <div className="header-top">
@@ -62,7 +64,7 @@ function UnitDetails({ unit }) {
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
-                                                    <><br />[{w.stats.Keywords}]</>
+                                                    <><br />[{keywordFormat(w.stats.Keywords, keywords, (e) => alert(e))}]</>
                                                 )}
                                             </td>
                                             <td>{w.stats.Range}</td><td>{w.stats.A}</td>
@@ -96,7 +98,7 @@ function UnitDetails({ unit }) {
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
-                                                    <> <br />[{w.stats.Keywords}]</>
+                                                    <> <br />[{keywordFormat(w.stats.Keywords, keywords, (e) => alert(e))}]</>
                                                 )}
                                             </td>
                                             <td>{w.stats.Range}</td><td>{w.stats.A}</td>
@@ -118,6 +120,7 @@ function UnitDetails({ unit }) {
                         {unit.abilities.map((a, i) => (
                             <li key={i} style={{ whiteSpace: "pre-line" }}>
                                 <strong>{a.name}: </strong> {strFormatter(a.description)}
+
                             </li>
                         ))}
                     </ul>
