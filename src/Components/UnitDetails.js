@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import RuleDetails from "./RuleDetails"
+import KeywordModal from "./KeywordModal";
 
 import MeleeIcon from "../Icons/MeleeWeapons.png";
 import RangedIcon from "../Icons/RangedWeapons.png";
@@ -9,13 +10,14 @@ import strFormatter from "../StrFormatter";
 import keywordFormat from "../formatWithKeywords";
 
 function UnitDetails({ unit, keywords }) {
+    const [keywordItem, setKeywordItem] = useState(null);
     const themeClass = 'theme-' + unit.faction;
 
     if (unit.type === "rules") return <RuleDetails unit={unit} />
 
     return (
         <div className={`unit-details ${themeClass}`}>
-            {console.log(keywords.map(k => k.name))}
+            {keywordItem && <KeywordModal keyword={keywordItem} onClose={() => setKeywordItem(null)} />}
             {/* Header with stats inside */}
             <header className="unit-header">
                 <div className="header-top">
@@ -64,7 +66,7 @@ function UnitDetails({ unit, keywords }) {
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
-                                                    <><br />[{keywordFormat(w.stats.Keywords, keywords, (e) => alert(e))}]</>
+                                                    <><br />[{keywordFormat(w.stats.Keywords, keywords, (e) => setKeywordItem(e))}]</>
                                                 )}
                                             </td>
                                             <td>{w.stats.Range}</td><td>{w.stats.A}</td>
@@ -98,7 +100,7 @@ function UnitDetails({ unit, keywords }) {
                                             <td className="th-name">
                                                 <strong>{w.name}</strong> {w.count && `x${w.count}`}
                                                 {w.stats.Keywords?.length > 0 && w.stats.Keywords !== "-" && (
-                                                    <> <br />[{keywordFormat(w.stats.Keywords, keywords, (e) => alert(e))}]</>
+                                                    <> <br />[{keywordFormat(w.stats.Keywords, keywords, (e) => setKeywordItem(e))}]</>
                                                 )}
                                             </td>
                                             <td>{w.stats.Range}</td><td>{w.stats.A}</td>
@@ -135,7 +137,11 @@ function UnitDetails({ unit, keywords }) {
                         <strong className="enhancement-name">{unit.enhancement.name}:</strong>
                         <span className="enhancement-cost">{unit.enhancement.cost} pts</span>
                     </div>
-                    <p className="enhancement-desc">{unit.enhancement.description}</p>
+                    <p className="enhancement-desc">{keywordFormat(
+                        unit.enhancement.description,
+                        keywords,
+                        (e) => setKeywordItem(e)
+                    )}</p>
                 </section>
             )}
 
@@ -143,7 +149,7 @@ function UnitDetails({ unit, keywords }) {
             {unit.core?.length > 0 && (
                 <section className="keywords">
                     <h3 className="unit-header">Core</h3>
-                    <p>{unit.core.join(", ")}</p>
+                    <p>{keywordFormat(unit.core.join(", "), keywords, (e) => setKeywordItem(e))}</p>
                 </section>
             )}
 

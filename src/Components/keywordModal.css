@@ -1,0 +1,51 @@
+/* Backdrop */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;   /* center vertically */
+  justify-content: center; /* center horizontally */
+  z-index: 1000;
+}
+
+/* Content */
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-30px); /* start offset */
+  opacity: 0;
+  animation: slideFadeIn 0.3s ease-out forwards;
+  position: relative;
+}
+
+/* Slide + fade animation */
+@keyframes slideFadeIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.descText {
+  white-space: pre-line;
+}

@@ -74,7 +74,6 @@ export function extractUnits(rosterJson) {
     // function
     function processSelections(selections) {
         selections.forEach(sel => {
-            console.log(sel)
             // Army Rules
             sel.rules?.map(r => {
                 const isArmyRule = armyRulesList.some(rule =>
@@ -91,13 +90,14 @@ export function extractUnits(rosterJson) {
                         description: r.description
                     }
                     armyRules.rules.push(rule);
-                } else {
-                    const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
-
-                    if (ruleExists) return;
-
-                    rulesList.push({ name: r.name, description: r.description });
                 }
+
+                const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+
+                if (ruleExists) return;
+
+                rulesList.push({ name: r.name, description: r.description });
+
             })
 
             // Detachment
@@ -247,7 +247,7 @@ export function extractUnits(rosterJson) {
                         if (s.name.toLowerCase() === "warlord") unit.warlord = true;
                         if (s.group?.toLowerCase().includes("enhancements")) {
                             unit.points += s.costs[0]?.value;
-
+                            console.log(sel)
                             const enhancement = {
                                 name: s.name,
                                 cost: s.costs[0]?.value,
@@ -366,7 +366,11 @@ export function extractUnits(rosterJson) {
     }
 
     forces.forEach(force => force.selections && processSelections(force.selections));
-    rulesList.push({ name: "Psychic", description: "Some weapons and abilities can only be used by PSYKERS. Such weapons and abilities are tagged with the word ‘Psychic’. If a Psychic weapon or ability causes any unit to suffer one or more wounds, each of those wounds is considered to have been inflicted by a Psychic Attack. " })
+
+    // Missed Rules
+    rulesList.push({ name: "Psychic", description: "Some weapons and abilities can only be used by PSYKERS. Such weapons and abilities are tagged with the word ‘Psychic’. If a Psychic weapon or ability causes any unit to suffer one or more wounds, each of those wounds is considered to have been inflicted by a Psychic Attack. " });
+    rulesList.push({ name: "Feel No Pain", description: "Some models have ‘Feel No Pain x+’ listed in their abilities. Each time a model with this ability suffers damage and so would lose a wound (including wounds lost due to mortal wounds), roll one D6: if the result is greater than or equal to the number denoted by ‘x’, that wound is ignored and is not lost. If a model has more than one Feel No Pain ability, you can only use one of those abilities each time that model suffers damage and so would lose a wound." });
+
     units.rules = rulesList;
 
     return units;

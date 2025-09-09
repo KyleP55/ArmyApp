@@ -9,11 +9,11 @@ export default function formatWithKeywords(text, keywords, onKeywordClick) {
             // e.g. Anti- → match "Anti-" + word
             return `${base}\\S+`;
         } else if (base === "Melta") {
-            // e.g. Melta → match "Melta" + optional " D3", " 2D6", etc.
             return `${base}(?:\\s+\\S+)?`;
         } else if (base === "Deadly Demise") {
-            // e.g. Melta → match "Melta" + optional " D3", " 2D6", etc.
             return `${base}(?:\\s+\\S+)?`;
+        } else if (base === "Feel No Pain") {
+            return `Feel\\s+No\\s+Pain(?:\\s*\\(?.*?\\)?)?`;
         } else {
             // Normal keyword → exact word match
             return `\\b${base}\\b`;
@@ -27,7 +27,7 @@ export default function formatWithKeywords(text, keywords, onKeywordClick) {
     return parts.map((part, i) => {
         // Find which keyword matches this part (case-insensitive)
         const keyword = keywords.find(k =>
-            part.toLowerCase().startsWith(k.name.toLowerCase())
+            part?.toLowerCase().startsWith(k.name.toLowerCase())
         );
 
         if (keyword) {
@@ -35,7 +35,7 @@ export default function formatWithKeywords(text, keywords, onKeywordClick) {
                 <span
                     key={i}
                     style={{ color: "blue", cursor: "pointer", fontWeight: "bold" }}
-                    onClick={() => onKeywordClick(strFormatter(keyword.description))}
+                    onClick={() => onKeywordClick(keyword)}
                 >
                     {part}
                 </span>
