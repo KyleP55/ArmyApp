@@ -8,6 +8,7 @@ import "./App.css";
 function App() {
   const [units, setUnits] = useState(null);
   const [selectedUnit, setSelectedUnit] = useState(null);
+  const [keywordsList, setKeywordList] = useState(null);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -18,14 +19,28 @@ function App() {
       try {
         const json = JSON.parse(event.target.result);
         const extracted = extractUnits(json);
-        setUnits(extracted);
-        setSelectedUnit(extracted[1] || null);
+        const armyRules = extracted[0].find(u => u.name.toLowerCase() === "army rules");
+
+        const sortedUnits = [
+          ...(armyRules ? [armyRules] : []),
+          ...extracted[0]
+            .filter(u => u.name.toLowerCase() !== "army rules")
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        ];
+        setUnits(sortedUnits);
+        setSelectedUnit(armyRules ? sortedUnits[1] : sortedUnits[0] || null);
+        setKeywordList(extracted[1]);
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);
       }
     };
     reader.readAsText(file);
+  }
+
+  function onClear() {
+    setUnits(null)
+    setSelectedUnit(null)
   }
 
   // Show file input before anything else
@@ -44,10 +59,10 @@ function App() {
   // Main app once JSON is loaded
   return (
     <div className="app-layout">
-      <Sidebar units={units} onSelect={setSelectedUnit} handleClear={() => setUnits(null)} />
+      <Sidebar units={units} keywords={keywordsList} onSelect={setSelectedUnit} handleClear={onClear} />
       <main className="content">
         {selectedUnit ? (
-          <UnitDetails unit={selectedUnit} keywords={units.rules} faction={units.faction} />
+          <UnitDetails unit={selectedUnit} keywords={keywordsList} faction={units.faction} />
         ) : (
           <p className="placeholder">Select a unit to view details</p>
         )}

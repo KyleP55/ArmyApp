@@ -1,13 +1,13 @@
 import strFormatter from "./StrFormatter";
 
-export default function formatWithKeywords(text, keywords, onKeywordClick) {
+export default function formatWithKeywords(text, keywords = [], onKeywordClick) {
     // Build patterns for each keyword
     const patterns = keywords.map(k => {
         let base = k.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // escape regex special chars
 
         if (base.endsWith("-")) {
             // e.g. Anti- → match "Anti-" + word
-            return `${base}\\S+`;
+            return `${base}\\S+(?:\\s+\\S+)?`;
         } else if (base === "Melta") {
             return `${base}(?:\\s+\\S+)?`;
         } else if (base === "Deadly Demise") {
@@ -15,7 +15,6 @@ export default function formatWithKeywords(text, keywords, onKeywordClick) {
         } else if (base === "Feel No Pain") {
             return `Feel\\s+No\\s+Pain(?:\\s*\\(?.*?\\)?)?`;
         } else {
-            // Normal keyword → exact word match
             return `\\b${base}\\b`;
         }
     });

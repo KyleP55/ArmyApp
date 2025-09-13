@@ -1,4 +1,5 @@
 import strFormatter from "../StrFormatter";
+import formatWithKeywords from "../formatWithKeywords";
 
 function RuleDetails({ unit }) {
     const themeClass = 'theme-' + unit.faction;

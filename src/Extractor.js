@@ -372,8 +372,7 @@ export function extractUnits(rosterJson) {
     rulesList.push({ name: "Feel No Pain", description: "Some models have ‘Feel No Pain x+’ listed in their abilities. Each time a model with this ability suffers damage and so would lose a wound (including wounds lost due to mortal wounds), roll one D6: if the result is greater than or equal to the number denoted by ‘x’, that wound is ignored and is not lost. If a model has more than one Feel No Pain ability, you can only use one of those abilities each time that model suffers damage and so would lose a wound." });
 
     units.rules = rulesList;
-
-    return units;
+    return [units, rulesList];
 }
 
 
