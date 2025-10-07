@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { extractUnits } from "./Extractor";
 import Sidebar from "./Components/Sidebar";
 import UnitDetails from "./Components/UnitDetails";
+import Demo from "./demo.json";
 
 import "./App.css";
 
@@ -30,6 +31,7 @@ function App() {
         setUnits(sortedUnits);
         setSelectedUnit(armyRules ? sortedUnits[1] : sortedUnits[0] || null);
         setKeywordList(extracted[1]);
+
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);
@@ -43,6 +45,20 @@ function App() {
     setSelectedUnit(null)
   }
 
+  function onDemo() {
+    const armyRules = Demo.find(u => u.name.toLowerCase() === "army rules");
+
+    const sortedUnits = [
+      ...(armyRules ? [armyRules] : []),
+      ...Demo
+        .filter(u => u.name.toLowerCase() !== "army rules")
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    ];
+    setUnits(sortedUnits);
+    setSelectedUnit(armyRules ? sortedUnits[1] : sortedUnits[0] || null);
+    setKeywordList([]);
+  }
+
   // Show file input before anything else
   if (!units) {
     return (
@@ -51,6 +67,9 @@ function App() {
         <label className="upload-btn">
           Choose File
           <input type="file" accept=".json" onChange={handleFileChange} hidden />
+        </label>
+        <label className="upload-btn" onClick={onDemo}>
+          Demo
         </label>
       </div>
     );

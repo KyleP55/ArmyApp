@@ -1,0 +1,311 @@
+[
+  {
+    "type": "rules",
+    "name": "Army Rules",
+    "faction": "Some Faction",
+    "rules": [
+      {
+        "name": "Faction Ability Name",
+        "description": "If your Army Faction is Some Faction, you roll some dice and do another action on some result. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+      },
+      {
+        "name": "Second Ability Name",
+        "description": "If your Army Faction is Some Faction, you can do another action when you move. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+      }
+    ],
+    "detachments": [
+      {
+        "name": "Army Specialization",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+      }
+    ]
+  },
+  {
+    "name": "Grunts",
+    "count": 5,
+    "unitCount": 2,
+    "stats": [
+      {
+        "label": "M",
+        "value": "3\""
+      },
+      {
+        "label": "T",
+        "value": "4"
+      },
+      {
+        "label": "SV",
+        "value": "3+"
+      },
+      {
+        "label": "W",
+        "value": "5"
+      },
+      {
+        "label": "LD",
+        "value": "8+"
+      },
+      {
+        "label": "OC",
+        "value": "2"
+      }
+    ],
+    "abilities": [
+      {
+        "name": "Gunk",
+        "description": "In your Shooting phase, select one enemy INFANTRY unit hit by one or more of those attacks. That unit cant move."
+      }
+    ],
+    "enhancement": null,
+    "keywords": [
+      "Grunts",
+      "Infantry",
+      "Snare",
+      "Faction: Some Faction"
+    ],
+    "core": [
+      "Something"
+    ],
+    "models": [
+      {
+        "name": "Grunts",
+        "count": 5,
+        "weapons": [
+          "Gunker",
+          "Punch"
+        ]
+      }
+    ],
+    "weapons": {
+      "melee": [
+        {
+          "name": "Punch",
+          "type": "Melee Weapons",
+          "count": 5,
+          "stats": {
+            "Range": "Melee",
+            "A": "1",
+            "WS": "6+",
+            "S": "14",
+            "AP": "0",
+            "D": "12",
+            "Keywords": "-"
+          }
+        }
+      ],
+      "ranged": [
+        {
+          "name": "Gunker",
+          "type": "Ranged Weapons",
+          "count": 5,
+          "stats": {
+            "Range": "24\"",
+            "A": "D3",
+            "BS": "3+",
+            "S": "5",
+            "AP": "0",
+            "D": "1",
+            "Keywords": "Keyword1, Keyword2"
+          }
+        }
+      ]
+    },
+    "points": 55,
+    "categories": [
+      "Grunt",
+      "Infantry",
+      "Snare",
+      "Faction: Some Faction"
+    ],
+    "faction": "Some Faction",
+    "warlord": false
+  },
+  {
+    "name": "Captain",
+    "count": 0,
+    "unitCount": 1,
+    "stats": [
+      {
+        "label": "M",
+        "value": "12\""
+      },
+      {
+        "label": "T",
+        "value": "6"
+      },
+      {
+        "label": "SV / Inv",
+        "value": "3+ / 4+"
+      },
+      {
+        "label": "W",
+        "value": "12"
+      },
+      {
+        "label": "LD",
+        "value": "7+"
+      },
+      {
+        "label": "OC",
+        "value": "4"
+      }
+    ],
+    "abilities": [
+      {
+        "name": "Leadership",
+        "description": "While this model is leading a unit, weapons equipped by models in that unit have the [Keyword1] ability."
+      },
+      {
+        "name": "Bolstered Defence",
+        "description": "At the start of the Combat phase, select one enemy unit within Engagement Range of this model. Until the end of the phase, each time a model in that unit makes an attack, subtract 1 from the AP."
+      },
+      {
+        "name": "Leader",
+        "description": "This model can be attached to the following unit:\n- Grunts\n- Super Grunts"
+      }
+    ],
+    "enhancement": {
+      "name": "Enhancement1",
+      "cost": 20,
+      "description": "Enhances the captain in some way."
+    },
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Captain",
+      "Faction: SomeFaction"
+    ],
+    "core": [
+      "Explore 8\"",
+      "Leader"
+    ],
+    "models": [],
+    "weapons": {
+      "melee": [
+        {
+          "name": "Sword",
+          "type": "Melee Weapons",
+          "count": 1,
+          "stats": {
+            "Range": "Melee",
+            "A": "6",
+            "WS": "2+",
+            "S": "8",
+            "AP": "-2",
+            "D": "2",
+            "Keywords": "Big Wounds, Double-Strike"
+          }
+        }
+      ],
+      "ranged": []
+    },
+    "points": 100,
+    "categories": [
+      "Infantry",
+      "Character",
+      "Captain",
+      "Faction: Some Faction"
+    ],
+    "faction": "Some Faction",
+    "warlord": true
+  },
+  {
+    "name": "Sniper",
+    "count": 5,
+    "unitCount": 2,
+    "stats": [
+      {
+        "label": "M",
+        "value": "3\""
+      },
+      {
+        "label": "T",
+        "value": "4"
+      },
+      {
+        "label": "SV",
+        "value": "3+"
+      },
+      {
+        "label": "W",
+        "value": "5"
+      },
+      {
+        "label": "LD",
+        "value": "8+"
+      },
+      {
+        "label": "OC",
+        "value": "2"
+      }
+    ],
+    "abilities": [
+      {
+        "name": "Hidden Threats",
+        "description": "If an enemy unit targets this unit, subtract 2 from the hit roll."
+      }
+    ],
+    "enhancement": null,
+    "keywords": [
+      "Sniper",
+      "Infantry",
+      "Snare",
+      "Faction: Some Faction"
+    ],
+    "core": [
+      "Something"
+    ],
+    "models": [
+      {
+        "name": "Grunts",
+        "count": 5,
+        "weapons": [
+          "Close Combat Weapons",
+          "High Powered Rifle"
+        ]
+      }
+    ],
+    "weapons": {
+      "melee": [
+        {
+          "name": "Close Combat Weapons",
+          "type": "Melee Weapons",
+          "count": 5,
+          "stats": {
+            "Range": "Melee",
+            "A": "3",
+            "WS": "4+",
+            "S": "3",
+            "AP": "0",
+            "D": "1",
+            "Keywords": "-"
+          }
+        }
+      ],
+      "ranged": [
+        {
+          "name": "High Powered Rifle",
+          "type": "Ranged Weapons",
+          "count": 5,
+          "stats": {
+            "Range": "48\"",
+            "A": "1",
+            "BS": "3+",
+            "S": "11",
+            "AP": "-3",
+            "D": "D6+3",
+            "Keywords": "Keyword1, Keyword2"
+          }
+        }
+      ]
+    },
+    "points": 55,
+    "categories": [
+      "Snipers",
+      "Infantry",
+      "Faction: Some Faction"
+    ],
+    "faction": "Some Faction",
+    "warlord": false
+  }
+]
