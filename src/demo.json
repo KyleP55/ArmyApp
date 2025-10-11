@@ -111,6 +111,9 @@
       ]
     },
     "points": 55,
+    "core": [
+      "Faction Ability Name"
+    ],
     "categories": [
       "Grunt",
       "Infantry",
@@ -177,7 +180,8 @@
     ],
     "core": [
       "Explore 8\"",
-      "Leader"
+      "Leader",
+      "Faction Ability Name"
     ],
     "models": [],
     "weapons": {

@@ -3,6 +3,7 @@ import { extractUnits } from "./Extractor";
 import Sidebar from "./Components/Sidebar";
 import UnitDetails from "./Components/UnitDetails";
 import Demo from "./demo.json";
+import KeywordDemo from "./keywords.json";
 
 import "./App.css";
 
@@ -31,7 +32,6 @@ function App() {
         setUnits(sortedUnits);
         setSelectedUnit(armyRules ? sortedUnits[1] : sortedUnits[0] || null);
         setKeywordList(extracted[1]);
-
       } catch (err) {
         alert("Invalid JSON file");
         console.error(err);
@@ -41,8 +41,9 @@ function App() {
   }
 
   function onClear() {
-    setUnits(null)
-    setSelectedUnit(null)
+    setUnits(null);
+    setSelectedUnit(null);
+    setKeywordList(null);
   }
 
   function onDemo() {
@@ -56,7 +57,7 @@ function App() {
     ];
     setUnits(sortedUnits);
     setSelectedUnit(armyRules ? sortedUnits[1] : sortedUnits[0] || null);
-    setKeywordList([]);
+    setKeywordList(KeywordDemo);
   }
 
   // Show file input before anything else
