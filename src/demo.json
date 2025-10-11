@@ -2,7 +2,7 @@
   {
     "type": "rules",
     "name": "Army Rules",
-    "faction": "Some Faction",
+    "faction": "chaos",
     "rules": [
       {
         "name": "Faction Ability Name",
@@ -63,9 +63,6 @@
       "Snare",
       "Faction: Some Faction"
     ],
-    "core": [
-      "Something"
-    ],
     "models": [
       {
         "name": "Grunts",
@@ -120,7 +117,7 @@
       "Snare",
       "Faction: Some Faction"
     ],
-    "faction": "Some Faction",
+    "faction": "chaos",
     "warlord": false
   },
   {
@@ -210,7 +207,7 @@
       "Captain",
       "Faction: Some Faction"
     ],
-    "faction": "Some Faction",
+    "faction": "chaos",
     "warlord": true
   },
   {
@@ -309,7 +306,7 @@
       "Infantry",
       "Faction: Some Faction"
     ],
-    "faction": "Some Faction",
+    "faction": "chaos",
     "warlord": false
   }
 ]
