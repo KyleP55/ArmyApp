@@ -307,7 +307,10 @@ export function extractUnits(rosterJson) {
             sel.selections?.forEach((sel2) => {
                 if (sel2.type === "model") {
                     tempKeywords = [];
-                    if (sel2.categories) tempKeywords.push(sel2.name + ":MODELONLY")
+                    if (sel2.categories) {
+                        let str = sel2.name.toUpperCase() + " MODEL ONLY: "
+                        tempKeywords.push(str);
+                    }
                     sel2.categories?.forEach(c => {
                         tempKeywords.push(c.name);
                     });
@@ -315,7 +318,7 @@ export function extractUnits(rosterJson) {
                 }
             });
             unit.keywords = allTempKeywords;
-            console.log(allTempKeywords)
+            //console.log(allTempKeywords)
 
             //
             // --- Stats ---

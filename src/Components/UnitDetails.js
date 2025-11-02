@@ -172,8 +172,9 @@ function UnitDetails({ unit, keywords }) {
                             const isFaction = kw.toLowerCase().includes("faction");
                             return (
                                 <React.Fragment key={i}>
-                                    {isFaction ? <strong>{kw}</strong> : kw}
-                                    {i < unit.keywords.length - 1 && ", "}
+                                    {kw.toUpperCase().includes("MODEL ONLY") && <strong>| </strong>}
+                                    {isFaction || kw.toUpperCase().includes("MODEL ONLY") ? <strong>{kw}</strong> : kw}
+                                    {!kw.toUpperCase().includes("MODEL ONLY") && i < unit.keywords.length - 1 && ", "}
                                 </React.Fragment>
                             );
                         })}
