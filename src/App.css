@@ -120,8 +120,14 @@ body {
 }
 
 /* Stats row inside header */
-.unit-header .header-stats {
+.unit-header .header-stats  {
   margin-top: 8px;
+}
+
+.stats-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
 }
 
 /* Grid styling */

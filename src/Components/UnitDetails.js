@@ -30,14 +30,24 @@ function UnitDetails({ unit, keywords }) {
                 </div>
 
                 <div className="header-stats">
-                    <div className="stats-grid">
-                        {unit.stats.map((s, i) => (
-                            <div key={i} className="stat">
-                                <div className="stat-label">{s.label}</div>
-                                <div className="stat-value">{s.value}</div>
+                    {unit.stats.map((model, i) => (
+                        <div className="stats-row">
+                            {/* first item, separate row */}
+                            {unit.stats.length > 1 && (
+                                <div className="statModelName">{model[0]}</div>
+                            )}
+
+                            {/* remaining items in grid */}
+                            <div className="stats-grid">
+                                {model.slice(1).map((s, i) => (
+                                    <div key={i} className="stat">
+                                        <div className="stat-label">{s.label}</div>
+                                        <div className="stat-value">{s.value}</div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </header>
 
