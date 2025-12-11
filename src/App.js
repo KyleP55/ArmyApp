@@ -6,6 +6,7 @@ import Demo from "./demo.json";
 import KeywordDemo from "./keywords.json";
 
 import "./App.css";
+import icon from "./Icons/war.png";
 
 function App() {
   const [units, setUnits] = useState(null);
@@ -72,6 +73,13 @@ function App() {
         <label className="upload-btn" onClick={onDemo}>
           Demo
         </label>
+        <br />
+        <br />
+        <p>Credits:</p>
+        <div>
+          <img src={icon} />
+          <a href="https://www.flaticon.com/free-icons/war" title="war icons">War icons created by Freepik - Flaticon</a>
+        </div>
       </div>
     );
   }
