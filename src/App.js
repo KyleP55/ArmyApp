@@ -12,6 +12,7 @@ function App() {
   const [units, setUnits] = useState(null);
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [keywordsList, setKeywordList] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   function handleFileChange(e) {
     const file = e.target.files[0];
@@ -85,9 +86,33 @@ function App() {
   }
 
   // Main app once JSON is loaded
-  return (
+  return (<>
+    <div className="mobile-header">
+      <button className="hamburger" onClick={() => setDrawerOpen(true)}>☰</button>
+      <h1 className="mobile-title">Army Builder</h1>
+    </div>
+
     <div className="app-layout">
-      <Sidebar units={units} keywords={keywordsList} onSelect={setSelectedUnit} handleClear={onClear} />
+      {/* Drawer wrapper */}
+      <div className={`drawer ${drawerOpen ? "open" : ""}`}>
+        <Sidebar
+          units={units}
+          keywords={keywordsList}
+          onSelect={(u) => {
+            setSelectedUnit(u);
+            setDrawerOpen(false); // close after selecting
+          }}
+          handleClear={onClear}
+        />
+      </div>
+
+      {/* Backdrop */}
+      <div
+        className={`drawer-backdrop ${drawerOpen ? "visible" : ""}`}
+        onClick={() => setDrawerOpen(false)}
+      />
+
+      {/* Main content (desktop still shows sidebar normally) */}
       <main className="content">
         {selectedUnit ? (
           <UnitDetails unit={selectedUnit} keywords={keywordsList} faction={units.faction} />
@@ -96,6 +121,7 @@ function App() {
         )}
       </main>
     </div>
+  </>
   );
 }
 

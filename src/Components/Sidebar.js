@@ -16,31 +16,34 @@ function Sidebar({ units, onSelect, handleClear }) {
     }, [units]);
 
     return (
-        <aside className="sidebar">
-            <button className="new-army-btn" onClick={() => handleClear()}>
-                + New Army
-            </button>
-            <h4 className="pointsText">Total Points: {totalPoints}</h4>
-            <input
-                type="text"
-                className="search"
-                placeholder="Search units..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-            />
-            <ul className="unit-list">
-                {filtered.map((u, idx) => (
-                    <li
-                        key={idx}
-                        className="unit-item"
-                        onClick={() => onSelect(u)}
-                    >
-                        {u.name}
-                        {u.unitCount > 1 && " (" + u.unitCount + ")"}
-                    </li>
-                ))}
-            </ul>
-        </aside>
+        <>
+            <aside className="sidebar">
+                <h2>asd</h2>
+                <button className="new-army-btn" onClick={() => handleClear()}>
+                    + New Army
+                </button>
+                <h4 className="pointsText">Total Points: {totalPoints}</h4>
+                <input
+                    type="text"
+                    className="search"
+                    placeholder="Search units..."
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                />
+                <ul className="unit-list">
+                    {filtered.map((u, idx) => (
+                        <li
+                            key={idx}
+                            className="unit-item"
+                            onClick={() => onSelect(u)}
+                        >
+                            {u.name}
+                            {u.unitCount > 1 && " (" + u.unitCount + ")"}
+                        </li>
+                    ))}
+                </ul>
+            </aside>
+        </>
     );
 }
 
