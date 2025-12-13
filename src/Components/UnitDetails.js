@@ -31,7 +31,7 @@ function UnitDetails({ unit, keywords }) {
 
                 <div className="header-stats">
                     {unit.stats.map((model, i) => (
-                        <div className="stats-row">
+                        <div className="stats-row" key={i}>
                             {/* first item, separate row */}
                             {unit.stats.length > 1 && (
                                 <div className="statModelName">{model[0]}</div>
@@ -139,6 +139,22 @@ function UnitDetails({ unit, keywords }) {
                 </section>
             )}
 
+            {/* Extras */}
+            {unit.extras?.length > 0 && unit.extras.map((e, i) => (
+                <section className="abilities" key={i}>
+                    <h3 className="unit-header">{e.name}</h3>
+                    <ul>
+                        {console.log(e)}
+                        {e.entries?.map((entrie, i2) => (
+                            <li key={i2 + '000'} style={{ whiteSpace: "pre-line" }}>
+                                {entrie}
+
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            ))}
+
             {/* Enhancement */}
             {unit.enhancement && (
                 <section className="abilities">
@@ -196,8 +212,8 @@ function UnitDetails({ unit, keywords }) {
                                     </div>
                                     {m.weapons?.length > 0 && (
                                         <ul className="weapons-list">
-                                            {m.weapons.map((w, i) => (
-                                                <li key={i}>{w}</li>
+                                            {m.weapons.map((w, i2) => (
+                                                <li key={i2 + '000'}>{w}</li>
                                             ))}
                                         </ul>
                                     )}

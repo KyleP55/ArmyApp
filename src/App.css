@@ -11,6 +11,7 @@ body {
 /* Sidebar */
 .sidebar {
   width: 200px;
+  height: 100vh;
   background: #222;
   color: #fff;
   display: flex;
@@ -450,6 +451,16 @@ th img {
     display: none;
   }
 
+  .hide-scrollbar {
+  overflow: auto;          /* or scroll */
+  -ms-overflow-style: none; /* IE / Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;            /* Chrome, Safari */
+}
+
 /* ============================
    MOBILE DRAWER LAYOUT
    ============================ */
@@ -463,6 +474,8 @@ th img {
   /* Hide desktop sidebar */
   .sidebar {
     width: 95%;
+    height: 100vh;
+    overflow-y: scroll;
   }
 
   /* Mobile header bar */

@@ -17,8 +17,7 @@ function Sidebar({ units, onSelect, handleClear }) {
 
     return (
         <>
-            <aside className="sidebar">
-                <h2>asd</h2>
+            <aside className="sidebar hide-scrollbar">
                 <button className="new-army-btn" onClick={() => handleClear()}>
                     + New Army
                 </button>

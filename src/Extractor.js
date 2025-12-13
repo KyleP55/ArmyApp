@@ -74,8 +74,9 @@ export function extractUnits(rosterJson) {
     // function
     function processSelections(selections) {
         selections.forEach(sel => {
+            //console.log('sel', sel)
             // Army Rules
-            sel.rules?.map(r => {
+            sel.rules?.forEach(r => {
                 const isArmyRule = armyRulesList.some(rule =>
                     rule.includes(r.name.toLowerCase())
                 );
@@ -98,13 +99,13 @@ export function extractUnits(rosterJson) {
 
                 rulesList.push({ name: r.name, description: r.description });
 
-            })
+            });
 
             // Detachment
             if (sel.name?.toLowerCase() === "detachment" && sel.selections) {
                 const sel2 = sel.selections[0];
 
-                if (sel2.name.toLowerCase() != 'battle size') {
+                if (sel2.name.toLowerCase() !== 'battle size') {
                     const desc = sel2.profiles?.[0]
                         ? `${sel2.profiles[0].name}: ${sel2.profiles[0].characteristics?.[0]?.$text || ""}`
                         : `${sel2.rules?.[0]?.name || ""}: ${sel2.rules?.[0]?.description || ""}`;
@@ -118,10 +119,9 @@ export function extractUnits(rosterJson) {
 
                     armyRules.detachments.push(detachment);
                 }
-            } else
-                if (sel.type !== "model" && sel.type !== "unit") {
-                    return;
-                }
+            } else if (sel.type !== "model" && sel.type !== "unit") {
+                return;
+            }
 
             let unitProfile = [];
 
@@ -132,10 +132,18 @@ export function extractUnits(rosterJson) {
 
             // case 2: check nested selections
             if (unitProfile.length < 1 && sel.selections) {
-                //console.log('sel', sel)
+                let stringList = [];
                 sel.selections.forEach(s => {
-                    const found = s.profiles?.filter(p => p.typeName === "Unit" || p.typeName === "Model");
-                    if (found) unitProfile = found;
+                    const found = s.profiles?.find(p => p.typeName === "Unit" || p.typeName === "Model");
+                    if (found) {
+                        const str = JSON.stringify(s.profiles[0]?.characteristics);
+                        const inList = stringList.find(sl => sl === str);
+                        if (!inList) {
+                            stringList.push(str);
+                            unitProfile = [...unitProfile, found];
+                        }
+                        console.log('str match?', stringList)
+                    }
                 });
             }
             if (unitProfile.length < 1) return;
@@ -151,6 +159,7 @@ export function extractUnits(rosterJson) {
                 enhancement: null,
                 keywords: [],
                 core: [],
+                extras: [],
                 models: [],
                 weapons: { melee: [], ranged: [] },
                 points: sel.costs?.find(c => c.name === "pts")?.value || 0,
@@ -165,7 +174,7 @@ export function extractUnits(rosterJson) {
             if (sel.costs) {
                 unit.points = sel.costs.find(c => c.name === "pts")?.value;
             } else if (sel.selections) {
-                sel.selections.map(s => {
+                sel.selections.forEach(s => {
                     unit.points = s.costs ? s.costs.find(c => c.name === "pts")?.value : 0;
                 });
             }
@@ -189,6 +198,17 @@ export function extractUnits(rosterJson) {
                 });
             });
 
+            const excludes = ["Unit", "Model", "Abilities"];
+            const other = sel.profiles?.filter(p => !excludes.includes(p.typeName)) || [];
+            other.forEach(o => {
+                const extra = {
+                    name: o.typeName,
+                    description: o.characteristics[0].$text
+                }
+
+                unit.extras.push(extra)
+            });
+
             //
             // --- Core ---
             //
@@ -201,42 +221,56 @@ export function extractUnits(rosterJson) {
             //
             let weapons = [];
             if (sel.type === "unit") {
-                //console.log('s1', sel)
                 sel.selections?.forEach(sel2 => {
-                    const model = {
-                        name: sel2.name,
-                        count: sel2.number,
-                        weapons: []
-                    }
-
-                    unit.count += sel2.number;
                     //console.log('s2', sel2)
+                    let model;
+                    if (sel2.type === "model" || sel2.type === "unit") {
+                        model = {
+                            name: sel2.name,
+                            count: sel2.number,
+                            weapons: []
+                        }
 
-                    sel2.selections?.forEach(sel3 => {
-                        //console.log('s3', sel3)
-                        // Weapon Rules
-                        sel3.rules?.map(r => {
-                            const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
+                        unit.count += sel2.number;
 
-                            if (ruleExists) return;
+                        //console.log('s2', sel2)
 
-                            rulesList.push({ name: r.name, description: r.description });
-                        });
-                        // Profiles
-                        sel3.profiles?.forEach(p => {
-                            //console.log('s3 - profile', p)
-                            getWeapons(p, model, weapons, sel3.number);
-                        });
+                        sel2.selections?.forEach(sel3 => {
+                            //console.log('s3', sel3)
+                            // Weapon Rules
+                            sel3.rules?.forEach(r => {
+                                const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
 
-                        sel3.selections?.forEach(sel4 => {
-                            sel4.profiles?.forEach(p => {
-                                getWeapons(p, model, weapons, sel4.number);
-                            })
-                        });
-                    })
+                                if (ruleExists) return;
 
-                    unit.models.push(model);
-                })
+                                rulesList.push({ name: r.name, description: r.description });
+                            });
+                            // Profiles
+                            sel3.profiles?.forEach(p => {
+                                //console.log('s3 - profile', p)
+                                getWeapons(p, model, weapons, sel3.number);
+                            });
+
+                            sel3.selections?.forEach(sel4 => {
+                                sel4.profiles?.forEach(p => {
+                                    getWeapons(p, model, weapons, sel4.number);
+                                })
+                            });
+                        })
+
+                        unit.models.push(model);
+                    } else if (sel2.type === "upgrade") {
+                        let extra;
+                        if (sel2.profiles && sel2.profiles[0].characteristics) {
+                            extra = {
+                                name: sel2.name,
+                                description: sel2.profiles[0].characteristics[0].$text
+                            }
+                        }
+
+                        unit.extras.push(extra);
+                    }
+                });
             } else if (sel.type === "model") {
                 // Weapons are in profiles directly for models
                 sel.selections?.forEach(s => {
@@ -260,7 +294,7 @@ export function extractUnits(rosterJson) {
                     });
 
                     // Weapon Rules
-                    s.rules?.map(r => {
+                    s.rules?.forEach(r => {
                         const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
 
                         if (ruleExists) return;
@@ -268,9 +302,9 @@ export function extractUnits(rosterJson) {
                         rulesList.push({ name: r.name, description: r.description });
                     });
 
-                    s.selections?.map(sel2 => {
+                    s.selections?.forEach(sel2 => {
                         // Weapon Rules
-                        sel2.rules?.map(r => {
+                        sel2.rules?.forEach(r => {
                             const ruleExists = rulesList?.some(rl => r.name.toLowerCase() === rl.name.toLowerCase());
 
                             if (ruleExists) return;
@@ -318,24 +352,8 @@ export function extractUnits(rosterJson) {
                 }
             });
             unit.keywords = allTempKeywords;
-            //console.log(allTempKeywords)
 
-            //
-            // --- Stats ---
-            //
-            // unitProfile.characteristics?.forEach((c, i) => {
-            //     let stat;
-            //     if (i === 2 && invSave) {
-            //         stat = {
-            //             label: c.name + " / Inv",
-            //             value: c.$text + " / " + invSave
-            //         };
-            //     } else {
-            //         stat = { label: c.name, value: c.$text };
-            //     }
-            //     unit.stats.push(stat);
-            // });
-            //console.log(unitProfile)
+            // STATS //
             unitProfile.forEach((profile, i) => {
                 let allStats = [profile.name];
                 profile.characteristics?.forEach((c, i) => {
@@ -350,8 +368,10 @@ export function extractUnits(rosterJson) {
                     }
                     allStats.push(stat);
                 });
+
                 unit.stats.push(allStats);
             })
+            console.log(unit.name, unit.stats)
 
             const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
             unit.faction = theme;
@@ -360,19 +380,37 @@ export function extractUnits(rosterJson) {
                 u.name === "Army Rules"
             )) units.push(armyRules);
 
-            // doup check
-            let dupe = false;
-            units.map((u, i) => {
+            // Extras Group
+            const newExtras = [];
+            unit.extras?.forEach(e => {
+                const index = newExtras.findIndex(ne => ne.name === e.name);
+                if (index > -1) {
+                    newExtras[index].entries.push(e.description);
+                } else {
+                    const extra = {
+                        name: e.name,
+                        entries: [e.description]
+                    }
+                    newExtras.push(extra);
+                }
+            });
+
+            unit.extras = newExtras;
+
+            // dup check
+            let dup = false;
+            units.forEach((u, i) => {
                 if (deepEqual(u, unit)) {
-                    dupe = i;
+                    dup = i;
                     return;
                 }
             });
 
-            if (dupe) {
-                units[dupe].unitCount++;
+            if (dup) {
+                units[dup].unitCount++;
                 return;
             }
+            //if (unit.extras.length > 0) console.log(unit.name, unit.extras)
             units.push(unit);
         });
     }
