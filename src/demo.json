@@ -24,7 +24,8 @@
     "name": "Grunts",
     "count": 5,
     "unitCount": 2,
-    "stats": [
+    "stats": [[
+      "Grunts",
       {
         "label": "M",
         "value": "3\""
@@ -49,7 +50,7 @@
         "label": "OC",
         "value": "2"
       }
-    ],
+    ]],
     "abilities": [
       {
         "name": "Gunk",
@@ -124,7 +125,8 @@
     "name": "Captain",
     "count": 0,
     "unitCount": 1,
-    "stats": [
+    "stats": [[
+      "Captain",
       {
         "label": "M",
         "value": "12\""
@@ -149,7 +151,7 @@
         "label": "OC",
         "value": "4"
       }
-    ],
+    ]],
     "abilities": [
       {
         "name": "Leadership",
@@ -214,7 +216,8 @@
     "name": "Sniper",
     "count": 5,
     "unitCount": 2,
-    "stats": [
+    "stats": [[
+      "Sniper",
       {
         "label": "M",
         "value": "3\""
@@ -239,7 +242,7 @@
         "label": "OC",
         "value": "2"
       }
-    ],
+    ]],
     "abilities": [
       {
         "name": "Hidden Threats",

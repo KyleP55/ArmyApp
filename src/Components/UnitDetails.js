@@ -144,7 +144,6 @@ function UnitDetails({ unit, keywords }) {
                 <section className="abilities" key={i}>
                     <h3 className="unit-header">{e.name}</h3>
                     <ul>
-                        {console.log(e)}
                         {e.entries?.map((entrie, i2) => (
                             <li key={i2 + '000'} style={{ whiteSpace: "pre-line" }}>
                                 {entrie}

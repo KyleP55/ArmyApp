@@ -142,7 +142,6 @@ export function extractUnits(rosterJson) {
                             stringList.push(str);
                             unitProfile = [...unitProfile, found];
                         }
-                        console.log('str match?', stringList)
                     }
                 });
             }
@@ -371,7 +370,7 @@ export function extractUnits(rosterJson) {
 
                 unit.stats.push(allStats);
             })
-            console.log(unit.name, unit.stats)
+            //console.log(unit.name, unit.stats)
 
             const theme = factions.find(f => forces[0]?.catalogueName.toLowerCase().includes(f.toLowerCase())) || "default";
             unit.faction = theme;
